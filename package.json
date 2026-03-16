@@ -1,0 +1,47 @@
+{
+  "name": "dual-sdk",
+  "version": "0.1.0",
+  "description": "Official TypeScript SDK for the DUAL tokenization platform",
+  "license": "MIT",
+  "author": "DUAL <dev@blockv-labs.io>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ro-ro-b/dual-sdk-ts"
+  },
+  "homepage": "https://dual-docs-gray.vercel.app",
+  "keywords": ["dual", "tokenization", "blockchain", "web3", "sdk"],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0",
+    "eslint": "^9.0.0"
+  }
+}
