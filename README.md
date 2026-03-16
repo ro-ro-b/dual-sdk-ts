@@ -1,6 +1,7 @@
 # DUAL TypeScript SDK
 
-[![npm version](https://img.shields.io/badge/npm-v0.1.0--beta-blue)](https://github.com/ro-ro-b/dual-sdk-ts)
+[![CI](https://github.com/ro-ro-b/dual-sdk-ts/actions/workflows/ci.yml/badge.svg)](https://github.com/ro-ro-b/dual-sdk-ts/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/badge/npm-v0.1.0--beta-blue)](https://github.com/ro-ro-b/dual-sdk-ts/releases/tag/v0.1.0)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
@@ -107,9 +108,9 @@ console.log(record.id, record.url);
 
 ## Links
 
-- [Documentation](https://dual-docs-gray.vercel.app/docs/developer-kit/typescript-sdk)
+- [Documentation](https://dual-docs-gray.vercel.app/docs/developer-kit/sdk)
 - [Python SDK](https://github.com/ro-ro-b/dual-sdk-python)
-- [API Reference](https://dual-docs-gray.vercel.app/docs/api-reference)
+- [API Reference](https://dual-docs-gray.vercel.app/docs/developer-kit/api-reference)
 
 ## License
 
