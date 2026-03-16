@@ -1,5 +1,5 @@
 import type { HttpTransport } from '../transport.js';
-import type { PaymentConfig, Deposit } from '../types.js';
+import type { PaymentConfig, Deposit, PaginationParams } from '../types.js';
 
 export class PaymentsModule {
   constructor(private http: HttpTransport) {}

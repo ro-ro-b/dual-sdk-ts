@@ -1,14 +1,17 @@
 import type { HttpTransport } from '../transport.js';
-import type { Organization, Member, Role, Invitation, PaginatedResponse } from '../types.js';
+import type {
+  Organization, Member, Role, Invitation, PaginatedResponse, PaginationParams,
+  CreateOrganizationRequest, AddMemberRequest, CreateRoleRequest, InviteRequest,
+} from '../types.js';
 
 export class OrganizationsModule {
   constructor(private http: HttpTransport) {}
 
-  async list(params?: { limit?: number; next?: string }): Promise<PaginatedResponse<Organization>> {
+  async list(params?: PaginationParams): Promise<PaginatedResponse<Organization>> {
     return this.http.request('GET', '/organizations', { query: params });
   }
 
-  async create(body: { name: string } & Record<string, unknown>): Promise<Organization> {
+  async create(body: CreateOrganizationRequest): Promise<Organization> {
     return this.http.request('POST', '/organizations', { body });
   }
 
@@ -24,16 +27,16 @@ export class OrganizationsModule {
     return this.http.request('GET', `/organizations/${orgId}/balance`);
   }
 
-  async balanceHistory(orgId: string, params?: { limit?: number; next?: string }): Promise<unknown> {
+  async balanceHistory(orgId: string, params?: PaginationParams): Promise<unknown> {
     return this.http.request('GET', `/organizations/${orgId}/balance/history`, { query: params });
   }
 
   // Members
-  async listMembers(orgId: string, params?: { limit?: number; next?: string }): Promise<PaginatedResponse<Member>> {
+  async listMembers(orgId: string, params?: PaginationParams): Promise<PaginatedResponse<Member>> {
     return this.http.request('GET', `/organizations/${orgId}/members`, { query: params });
   }
 
-  async addMember(orgId: string, body: { wallet_id: string; role?: string }): Promise<Member> {
+  async addMember(orgId: string, body: AddMemberRequest): Promise<Member> {
     return this.http.request('POST', `/organizations/${orgId}/members`, { body });
   }
 
@@ -50,7 +53,7 @@ export class OrganizationsModule {
     return this.http.request('GET', `/organizations/${orgId}/roles`);
   }
 
-  async createRole(orgId: string, body: { name: string; permissions?: string[] }): Promise<Role> {
+  async createRole(orgId: string, body: CreateRoleRequest): Promise<Role> {
     return this.http.request('POST', `/organizations/${orgId}/roles`, { body });
   }
 
@@ -63,7 +66,7 @@ export class OrganizationsModule {
   }
 
   // Invitations
-  async invite(orgId: string, body: { email: string; role?: string }): Promise<Invitation> {
+  async invite(orgId: string, body: InviteRequest): Promise<Invitation> {
     return this.http.request('POST', `/organizations/${orgId}/invitations`, { body });
   }
 

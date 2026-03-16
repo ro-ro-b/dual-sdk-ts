@@ -19,11 +19,12 @@ export {
   DualTimeoutError,
 } from './errors.js';
 
-// ── Types ──────────────────────────────────────────────
+// ── Types (response) ──────────────────────────────────
 export type {
   DualConfig,
   AuthMode,
   PaginatedResponse,
+  PaginationParams,
   TokenPair,
   Wallet,
   Template,
@@ -47,4 +48,29 @@ export type {
   ApiKey,
   SupportMessage,
   PublicStats,
+} from './types.js';
+
+// ── Types (request) ───────────────────────────────────
+export type {
+  CreateTemplateRequest,
+  CreateVariationRequest,
+  UpdateTemplateRequest,
+  CreateObjectRequest,
+  UpdateObjectRequest,
+  SearchObjectsRequest,
+  CreateOrganizationRequest,
+  AddMemberRequest,
+  CreateRoleRequest,
+  InviteRequest,
+  CreateWebhookRequest,
+  UpdateWebhookRequest,
+  ExecuteActionRequest,
+  CreateActionTypeRequest,
+  CreateFaceRequest,
+  UpdateFaceRequest,
+  SendMessageRequest,
+  CreateMessageTemplateRequest,
+  CreateApiKeyRequest,
+  SendSupportMessageRequest,
+  RequestAccessRequest,
 } from './types.js';

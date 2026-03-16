@@ -1,14 +1,17 @@
 import type { HttpTransport } from '../transport.js';
-import type { Face, PaginatedResponse } from '../types.js';
+import type {
+  Face, PaginatedResponse, PaginationParams,
+  CreateFaceRequest, UpdateFaceRequest,
+} from '../types.js';
 
 export class FacesModule {
   constructor(private http: HttpTransport) {}
 
-  async list(params?: { limit?: number; next?: string }): Promise<PaginatedResponse<Face>> {
+  async list(params?: PaginationParams): Promise<PaginatedResponse<Face>> {
     return this.http.request('GET', '/faces', { query: params });
   }
 
-  async create(body: Record<string, unknown>): Promise<Face> {
+  async create(body: CreateFaceRequest): Promise<Face> {
     return this.http.request('POST', '/faces', { body });
   }
 
@@ -16,7 +19,7 @@ export class FacesModule {
     return this.http.request('GET', `/faces/${faceId}`);
   }
 
-  async update(faceId: string, body: Partial<Face>): Promise<Face> {
+  async update(faceId: string, body: UpdateFaceRequest): Promise<Face> {
     return this.http.request('PATCH', `/faces/${faceId}`, { body });
   }
 

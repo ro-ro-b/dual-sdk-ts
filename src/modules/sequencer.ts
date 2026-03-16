@@ -1,10 +1,10 @@
 import type { HttpTransport } from '../transport.js';
-import type { Batch, Checkpoint, PaginatedResponse } from '../types.js';
+import type { Batch, Checkpoint, PaginatedResponse, PaginationParams } from '../types.js';
 
 export class SequencerModule {
   constructor(private http: HttpTransport) {}
 
-  async listBatches(params?: { limit?: number; next?: string }): Promise<PaginatedResponse<Batch>> {
+  async listBatches(params?: PaginationParams): Promise<PaginatedResponse<Batch>> {
     return this.http.request('GET', '/batches', { query: params });
   }
 
@@ -12,7 +12,7 @@ export class SequencerModule {
     return this.http.request('GET', `/batches/${batchId}`);
   }
 
-  async listCheckpoints(params?: { limit?: number; next?: string }): Promise<PaginatedResponse<Checkpoint>> {
+  async listCheckpoints(params?: PaginationParams): Promise<PaginatedResponse<Checkpoint>> {
     return this.http.request('GET', '/checkpoints', { query: params });
   }
 

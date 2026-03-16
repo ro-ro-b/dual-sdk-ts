@@ -1,14 +1,17 @@
 import type { HttpTransport } from '../transport.js';
-import type { Action, ActionType, PaginatedResponse } from '../types.js';
+import type {
+  Action, ActionType, PaginatedResponse, PaginationParams,
+  ExecuteActionRequest, CreateActionTypeRequest,
+} from '../types.js';
 
 export class EventBusModule {
   constructor(private http: HttpTransport) {}
 
-  async execute(body: { action_type: string; payload?: Record<string, unknown> } & Record<string, unknown>): Promise<Action> {
+  async execute(body: ExecuteActionRequest): Promise<Action> {
     return this.http.request('POST', '/ebus/actions', { body });
   }
 
-  async listActions(params?: { limit?: number; next?: string }): Promise<PaginatedResponse<Action>> {
+  async listActions(params?: PaginationParams): Promise<PaginatedResponse<Action>> {
     return this.http.request('GET', '/ebus/actions', { query: params });
   }
 
@@ -16,15 +19,15 @@ export class EventBusModule {
     return this.http.request('GET', `/ebus/actions/${actionId}`);
   }
 
-  async executeBatch(actions: Array<Record<string, unknown>>): Promise<Action[]> {
+  async executeBatch(actions: ExecuteActionRequest[]): Promise<Action[]> {
     return this.http.request('POST', '/ebus/actions/batch', { body: { actions } });
   }
 
-  async listActionTypes(params?: { limit?: number; next?: string }): Promise<PaginatedResponse<ActionType>> {
+  async listActionTypes(params?: PaginationParams): Promise<PaginatedResponse<ActionType>> {
     return this.http.request('GET', '/ebus/action-types', { query: params });
   }
 
-  async createActionType(body: { name: string } & Record<string, unknown>): Promise<ActionType> {
+  async createActionType(body: CreateActionTypeRequest): Promise<ActionType> {
     return this.http.request('POST', '/ebus/action-types', { body });
   }
 

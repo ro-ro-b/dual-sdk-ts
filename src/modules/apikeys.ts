@@ -1,5 +1,5 @@
 import type { HttpTransport } from '../transport.js';
-import type { ApiKey } from '../types.js';
+import type { ApiKey, CreateApiKeyRequest } from '../types.js';
 
 export class ApiKeysModule {
   constructor(private http: HttpTransport) {}
@@ -8,7 +8,7 @@ export class ApiKeysModule {
     return this.http.request('GET', '/api-keys');
   }
 
-  async create(body?: { name?: string } & Record<string, unknown>): Promise<ApiKey> {
+  async create(body?: CreateApiKeyRequest): Promise<ApiKey> {
     return this.http.request('POST', '/api-keys', { body });
   }
 

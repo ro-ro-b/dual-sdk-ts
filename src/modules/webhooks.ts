@@ -1,14 +1,17 @@
 import type { HttpTransport } from '../transport.js';
-import type { Webhook, PaginatedResponse } from '../types.js';
+import type {
+  Webhook, PaginatedResponse, PaginationParams,
+  CreateWebhookRequest, UpdateWebhookRequest,
+} from '../types.js';
 
 export class WebhooksModule {
   constructor(private http: HttpTransport) {}
 
-  async list(params?: { limit?: number; next?: string }): Promise<PaginatedResponse<Webhook>> {
+  async list(params?: PaginationParams): Promise<PaginatedResponse<Webhook>> {
     return this.http.request('GET', '/webhooks', { query: params });
   }
 
-  async create(body: { url: string; events: string[] } & Record<string, unknown>): Promise<Webhook> {
+  async create(body: CreateWebhookRequest): Promise<Webhook> {
     return this.http.request('POST', '/webhooks', { body });
   }
 
@@ -16,7 +19,7 @@ export class WebhooksModule {
     return this.http.request('GET', `/webhooks/${webhookId}`);
   }
 
-  async update(webhookId: string, body: Partial<Webhook>): Promise<Webhook> {
+  async update(webhookId: string, body: UpdateWebhookRequest): Promise<Webhook> {
     return this.http.request('PATCH', `/webhooks/${webhookId}`, { body });
   }
 

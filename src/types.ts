@@ -222,6 +222,170 @@ export interface PublicStats {
   [key: string]: unknown;
 }
 
+// ── Request types ──────────────────────────────────────
+// Typed payloads for create/update/search operations.
+// Each uses `& { [key: string]: unknown }` for forward-compatible extra fields.
+
+/** Pagination params accepted by list endpoints. */
+export interface PaginationParams {
+  limit?: number;
+  next?: string;
+  [key: string]: unknown;
+}
+
+/** POST /templates */
+export interface CreateTemplateRequest {
+  name: string;
+  description?: string;
+  organization_id?: string;
+  properties?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+
+/** POST /templates/:id/variations */
+export interface CreateVariationRequest {
+  name: string;
+  properties?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+
+/** PATCH /templates/:id */
+export interface UpdateTemplateRequest {
+  name?: string;
+  description?: string;
+  properties?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+
+/** POST /objects */
+export interface CreateObjectRequest {
+  template_id: string;
+  properties?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+
+/** PATCH /objects/:id */
+export interface UpdateObjectRequest {
+  properties?: Record<string, unknown>;
+  owner_id?: string;
+  [key: string]: unknown;
+}
+
+/** POST /objects/search */
+export interface SearchObjectsRequest {
+  template_id?: string;
+  owner_id?: string;
+  properties?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+
+/** POST /organizations */
+export interface CreateOrganizationRequest {
+  name: string;
+  description?: string;
+  meta?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+
+/** POST /organizations/:id/members */
+export interface AddMemberRequest {
+  wallet_id: string;
+  role?: string;
+  [key: string]: unknown;
+}
+
+/** POST /organizations/:id/roles */
+export interface CreateRoleRequest {
+  name: string;
+  permissions?: string[];
+  [key: string]: unknown;
+}
+
+/** POST /organizations/:id/invitations */
+export interface InviteRequest {
+  email: string;
+  role?: string;
+  [key: string]: unknown;
+}
+
+/** POST /webhooks */
+export interface CreateWebhookRequest {
+  url: string;
+  events: string[];
+  secret?: string;
+  active?: boolean;
+  [key: string]: unknown;
+}
+
+/** PATCH /webhooks/:id */
+export interface UpdateWebhookRequest {
+  url?: string;
+  events?: string[];
+  active?: boolean;
+  [key: string]: unknown;
+}
+
+/** POST /ebus/actions */
+export interface ExecuteActionRequest {
+  action_type: string;
+  payload?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+
+/** POST /ebus/action-types */
+export interface CreateActionTypeRequest {
+  name: string;
+  description?: string;
+  [key: string]: unknown;
+}
+
+/** POST /faces */
+export interface CreateFaceRequest {
+  template_id: string;
+  display_type?: string;
+  resources?: string[];
+  [key: string]: unknown;
+}
+
+/** PATCH /faces/:id */
+export interface UpdateFaceRequest {
+  display_type?: string;
+  resources?: string[];
+  [key: string]: unknown;
+}
+
+/** POST /messages/send */
+export interface SendMessageRequest {
+  content: string;
+  [key: string]: unknown;
+}
+
+/** POST /messages/templates */
+export interface CreateMessageTemplateRequest {
+  name: string;
+  body: string;
+  [key: string]: unknown;
+}
+
+/** POST /api-keys */
+export interface CreateApiKeyRequest {
+  name?: string;
+  [key: string]: unknown;
+}
+
+/** POST /support */
+export interface SendSupportMessageRequest {
+  content: string;
+  [key: string]: unknown;
+}
+
+/** POST /support/request-access */
+export interface RequestAccessRequest {
+  feature: string;
+  reason?: string;
+  [key: string]: unknown;
+}
+
 // ── Auth Mode ───────────────────────────────────────────
 
 export type AuthMode = 'api_key' | 'bearer' | 'both';

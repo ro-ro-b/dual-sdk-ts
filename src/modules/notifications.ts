@@ -1,18 +1,21 @@
 import type { HttpTransport } from '../transport.js';
-import type { Message, MessageTemplate, PaginatedResponse } from '../types.js';
+import type {
+  Message, MessageTemplate, PaginatedResponse, PaginationParams,
+  SendMessageRequest, CreateMessageTemplateRequest,
+} from '../types.js';
 
 export class NotificationsModule {
   constructor(private http: HttpTransport) {}
 
-  async listMessages(params?: { limit?: number; next?: string }): Promise<PaginatedResponse<Message>> {
+  async listMessages(params?: PaginationParams): Promise<PaginatedResponse<Message>> {
     return this.http.request('GET', '/messages', { query: params });
   }
 
-  async send(body: { content: string } & Record<string, unknown>): Promise<Message> {
+  async send(body: SendMessageRequest): Promise<Message> {
     return this.http.request('POST', '/messages/send', { body });
   }
 
-  async listTemplates(params?: { limit?: number; next?: string }): Promise<PaginatedResponse<MessageTemplate>> {
+  async listTemplates(params?: PaginationParams): Promise<PaginatedResponse<MessageTemplate>> {
     return this.http.request('GET', '/messages/templates', { query: params });
   }
 
@@ -20,7 +23,7 @@ export class NotificationsModule {
     return this.http.request('GET', `/messages/templates/${templateId}`);
   }
 
-  async createTemplate(body: { name: string; body: string } & Record<string, unknown>): Promise<MessageTemplate> {
+  async createTemplate(body: CreateMessageTemplateRequest): Promise<MessageTemplate> {
     return this.http.request('POST', '/messages/templates', { body });
   }
 
