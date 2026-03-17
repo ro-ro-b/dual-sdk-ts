@@ -73,4 +73,7 @@ export type {
   CreateApiKeyRequest,
   SendSupportMessageRequest,
   RequestAccessRequest,
+  RegisterWalletRequest,
+  LinkWalletRequest,
+  UpdateWalletRequest,
 } from './types.js';

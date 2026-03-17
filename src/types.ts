@@ -386,6 +386,28 @@ export interface RequestAccessRequest {
   [key: string]: unknown;
 }
 
+// ── Wallet request types ────────────────────────────────
+
+export interface RegisterWalletRequest {
+  email: string;
+  password: string;
+  name?: string;
+  [key: string]: unknown;
+}
+
+export interface LinkWalletRequest {
+  provider: string;
+  token?: string;
+  [key: string]: unknown;
+}
+
+export interface UpdateWalletRequest {
+  name?: string;
+  avatar?: string;
+  meta?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+
 // ── Auth Mode ───────────────────────────────────────────
 
 export type AuthMode = 'api_key' | 'bearer' | 'both';

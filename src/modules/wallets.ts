@@ -1,5 +1,8 @@
 import type { HttpTransport } from '../transport.js';
-import type { TokenPair, Wallet, PaginatedResponse } from '../types.js';
+import type {
+  TokenPair, Wallet,
+  RegisterWalletRequest, LinkWalletRequest, UpdateWalletRequest,
+} from '../types.js';
 
 export class WalletsModule {
   constructor(private http: HttpTransport) {}
@@ -12,8 +15,8 @@ export class WalletsModule {
     return this.http.request('POST', '/wallets/login/guest');
   }
 
-  async register(email: string, password: string, extra?: Record<string, unknown>): Promise<TokenPair> {
-    return this.http.request('POST', '/wallets/register', { body: { email, password, ...extra } });
+  async register(body: RegisterWalletRequest): Promise<TokenPair> {
+    return this.http.request('POST', '/wallets/register', { body });
   }
 
   async verifyRegistration(token: string): Promise<TokenPair> {
@@ -32,8 +35,8 @@ export class WalletsModule {
     return this.http.request('GET', '/wallets/me');
   }
 
-  async updateMe(fields: Partial<Wallet>): Promise<Wallet> {
-    return this.http.request('PATCH', '/wallets/me', { body: fields });
+  async updateMe(body: UpdateWalletRequest): Promise<Wallet> {
+    return this.http.request('PATCH', '/wallets/me', { body });
   }
 
   async deleteMe(): Promise<void> {
@@ -52,7 +55,7 @@ export class WalletsModule {
     return this.http.request('GET', `/wallets/${walletId}/linked`);
   }
 
-  async link(body: Record<string, unknown>): Promise<Wallet> {
+  async link(body: LinkWalletRequest): Promise<Wallet> {
     return this.http.request('POST', '/wallets/link', { body });
   }
 
