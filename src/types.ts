@@ -325,10 +325,9 @@ export interface UpdateWebhookRequest {
   [key: string]: unknown;
 }
 
-/** POST /ebus/actions */
+/** POST /ebus/execute */
 export interface ExecuteActionRequest {
-  action_type: string;
-  payload?: Record<string, unknown>;
+  action: Record<string, Record<string, unknown>>;
   [key: string]: unknown;
 }
 
@@ -419,7 +418,7 @@ export interface DualConfig {
   token?: string;
   /** How the token is sent: 'api_key' (x-api-key header), 'bearer' (Authorization), or 'both'. Default: 'bearer'. */
   authMode?: AuthMode;
-  /** Base URL for API requests. Default: https://blockv-labs.io */
+  /** Base URL for API requests. Default: https://gateway-48587430648.europe-west6.run.app */
   baseUrl?: string;
   /** Request timeout in milliseconds. Default: 30000 */
   timeout?: number;

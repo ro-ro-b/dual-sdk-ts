@@ -57,7 +57,7 @@ console.log(page.next);           // cursor or null
 const dual = new DualClient({
   token: 'your-token',
   authMode: 'api_key',        // default: 'bearer'
-  baseUrl: 'https://blockv-labs.io',  // default
+  baseUrl: 'https://gateway-48587430648.europe-west6.run.app',  // default
   timeout: 30_000,            // ms, default: 30000
   retry: {
     maxAttempts: 3,           // default: 3
@@ -88,6 +88,54 @@ try {
     console.log('Auth failed — check your token');
   }
 }
+```
+
+## Authentication
+
+### OTP Flow
+
+```typescript
+// Step 1: Request OTP
+await dual.wallets.requestOtp('user@example.com');
+
+// Step 2: Login with OTP
+const tokens = await dual.wallets.loginWithOtp('user@example.com', '123456');
+dual.setToken(tokens.access_token);
+
+// Step 3: Switch organization (if needed)
+const orgTokens = await dual.wallets.switchOrganization('org-id');
+dual.setToken(orgTokens.access_token);
+```
+
+## Event Bus
+
+```typescript
+// Execute an action with the new payload format
+await dual.eventBus.execute({
+  action: {
+    transfer: {
+      id: 'object-id',
+      to: 'recipient-wallet-id',
+    },
+  },
+});
+
+// Or mint a new object
+await dual.eventBus.execute({
+  action: {
+    mint: {
+      template_id: 'template-id',
+      custom: { /* custom properties */ },
+    },
+  },
+});
+
+// List action logs
+const logs = await dual.eventBus.listActions({ limit: 20 });
+console.log(logs.items);
+
+// Get a specific action
+const action = await dual.eventBus.getAction('action-id');
 ```
 
 ## File Uploads

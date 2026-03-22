@@ -30,7 +30,7 @@ export class HttpTransport {
   private backoffMs: number;
 
   constructor(config: DualConfig = {}) {
-    this.baseUrl = (config.baseUrl || 'https://blockv-labs.io').replace(/\/+$/, '');
+    this.baseUrl = (config.baseUrl || 'https://gateway-48587430648.europe-west6.run.app').replace(/\/+$/, '');
     this.token = config.token;
     this.authMode = config.authMode || 'bearer';
     this.timeout = config.timeout || 30_000;

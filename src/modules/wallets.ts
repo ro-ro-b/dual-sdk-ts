@@ -7,8 +7,16 @@ import type {
 export class WalletsModule {
   constructor(private http: HttpTransport) {}
 
-  async login(email: string, password: string): Promise<TokenPair> {
-    return this.http.request('POST', '/wallets/login', { body: { email, password } });
+  async requestOtp(email: string): Promise<void> {
+    await this.http.request('POST', '/auth/otp', { body: { email } });
+  }
+
+  async loginWithOtp(email: string, otp: string): Promise<TokenPair> {
+    return this.http.request('POST', '/auth/login', { body: { email, otp } });
+  }
+
+  async switchOrganization(orgId: string): Promise<TokenPair> {
+    return this.http.request('POST', '/organizations/switch', { body: { id: orgId } });
   }
 
   async guestLogin(): Promise<TokenPair> {
@@ -60,6 +68,6 @@ export class WalletsModule {
   }
 
   async refreshToken(refreshToken: string): Promise<TokenPair> {
-    return this.http.request('POST', '/wallets/token/refresh', { body: { refresh_token: refreshToken } });
+    return this.http.request('POST', '/auth/refresh-token', { body: { refresh_token: refreshToken } });
   }
 }

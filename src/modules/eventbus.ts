@@ -8,15 +8,15 @@ export class EventBusModule {
   constructor(private http: HttpTransport) {}
 
   async execute(body: ExecuteActionRequest): Promise<Action> {
-    return this.http.request('POST', '/ebus/actions', { body });
+    return this.http.request('POST', '/ebus/execute', { body });
   }
 
   async listActions(params?: PaginationParams): Promise<PaginatedResponse<Action>> {
-    return this.http.request('GET', '/ebus/actions', { query: params });
+    return this.http.request('GET', '/ebus/action-logs', { query: params });
   }
 
   async getAction(actionId: string): Promise<Action> {
-    return this.http.request('GET', `/ebus/actions/${actionId}`);
+    return this.http.request('GET', `/ebus/action-logs/${actionId}`);
   }
 
   async executeBatch(actions: ExecuteActionRequest[]): Promise<Action[]> {
